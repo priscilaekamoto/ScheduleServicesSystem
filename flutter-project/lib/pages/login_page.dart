@@ -44,20 +44,50 @@ class LoginPage extends StatelessWidget {
           ),
             obscureText:true,
           ),
-          Text('',
-            style: const TextStyle(height: 2,  ),
-
-          ), // TODO: Resolver problema de alinhamento do componente pai
+          SizedBox(height:5),
           Text('Esqueci minha senha                                                          ',
               style: const TextStyle(height: 2, color: Colors.red)
           ),
 
-          SizedBox(height: 15),
-          ElevatedButton(onPressed: () {}, child: Text('Login'), style: ButtonStyle(),)
+          SizedBox(height: 30),
+          ButtonTheme(
+            height: 60.0,
+            minWidth: 250.0,
 
-        ],
+            child: RaisedButton(
+              onPressed: () => {
+                Navigator.of(context).pushReplacementNamed('/cadastro')
+              },
+              shape: new RoundedRectangleBorder(borderRadius:
+            new BorderRadius.circular(30.0)),
+      child: Text(
+        "ENTRAR",
+        style: TextStyle(color: Colors.white, fontSize: 15 )
       ),
-    ),
+            ),
+                  ),
+          SizedBox(height: 15),
+          ButtonTheme(
+            height: 60.0,
+            minWidth: 250.0,
+            child: RaisedButton(
+              onPressed: () => {print("pressionei o botão"), },
+              shape: new RoundedRectangleBorder(borderRadius:
+              new BorderRadius.circular(30.0)),
+              child: Text(
+                "CADASTRE-SE",
+                style: TextStyle(color: Colors.black, fontSize: 15 ),
+              ),
+              color: Colors.white70,
+
+            ),
+          ),
+
+
+            ],
+          ),
+
+      ),
     );
-  }
+    }
 }
