@@ -17,7 +17,7 @@ class CadastroClientePage extends StatelessWidget {
             width:200
 
           ),
-          Text(      '     CADASTRO',
+          Text('CADASTRO',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)
 
           ),
