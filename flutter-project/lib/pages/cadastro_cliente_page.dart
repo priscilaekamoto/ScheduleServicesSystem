@@ -7,6 +7,7 @@ class CadastroClientePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 60, left: 30, right: 30),
