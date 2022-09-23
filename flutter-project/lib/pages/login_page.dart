@@ -51,8 +51,9 @@ class LoginPage extends StatelessWidget {
                 height: 60.0,
                 minWidth: 250.0,
                 child: RaisedButton(
-                  onPressed: () =>
-                  {Navigator.of(context).pushReplacementNamed('/cadastro')},
+                  onPressed: () => {
+                    { Navigator.of(context).pushReplacementNamed('/servicos') },
+                  },
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0)),
                   child: Text("ENTRAR",
@@ -65,7 +66,7 @@ class LoginPage extends StatelessWidget {
                 minWidth: 250.0,
                 child: RaisedButton(
                   onPressed: () => {
-                    print("pressionei o botão"),
+                    { Navigator.of(context).pushReplacementNamed('/cadastro') },
                   },
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0)),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/cadastro_cliente_page.dart';
+import 'package:hb_sobrancelhas_maquiagem/pages/lista_servicos_page.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/login_page.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/splash_page.dart';
 import 'palette.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/splash' : (_) => const SplashPage(),
         '/login' : (_) => const LoginPage(),
         '/cadastro' : (_) => const CadastroClientePage(),
+        '/servicos' : (_) => const ListaServicosPage(),
       },
     );
   }
