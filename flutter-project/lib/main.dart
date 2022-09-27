@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/cadastro_cliente_page.dart';
+import 'package:hb_sobrancelhas_maquiagem/pages/lista_horarios_page.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/lista_servicos_page.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/login_page.dart';
 import 'package:hb_sobrancelhas_maquiagem/pages/splash_page.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/login' : (_) => const LoginPage(),
         '/cadastro' : (_) => const CadastroClientePage(),
         '/servicos' : (_) => const ListaServicosPage(),
+        '/horarios' : (_) => const ListaHorariosPage(),
       },
     );
   }

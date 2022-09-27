@@ -2,28 +2,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class ItemService {
+class ItemHorario {
   int index;
   String value;
 
-  ItemService(int id, String val) {
+  ItemHorario(int id, String val) {
     index = id;
     value = val;
   }
 }
 
-class ListaServicosPage extends StatelessWidget {
-  const ListaServicosPage({Key key}) : super(key: key);
+class ListaHorariosPage extends StatelessWidget {
+  const ListaHorariosPage({Key key}) : super(key: key);
+
+  showAlertDialog(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text("Agendar"),
+      onPressed: () {},
+    );
+    Widget cancelarButton = FlatButton(
+      child: Text("Cancelar"),
+      onPressed: () {},
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text("Deseja agendar o atendimento para 11:00?"),
+      actions: [okButton, cancelarButton],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     String _selectedValue;
 
-    List<ItemService> listaServicos = [
-      new ItemService(1, "Depilação axila"),
-      new ItemService(2, "Depialção buço"),
-      new ItemService(3, "Depilação meia perna"),
-      new ItemService(4, "Depilação nariz"),
+    List<ItemHorario> listaServicos = [
+      new ItemHorario(1, "10:30"),
+      new ItemHorario(2, "11:30"),
+      new ItemHorario(3, "13:00"),
+      new ItemHorario(4, "14:00"),
     ];
 
     return Scaffold(
@@ -48,13 +71,14 @@ class ListaServicosPage extends StatelessWidget {
                 DropdownButton(
                   value: _selectedValue,
                   hint: Text(
-                    'Selecione um Serviço',
+                    'Horários Disponíveis',
                   ),
                   //isExpanded: false,
                   onChanged: (item) {
                     _selectedValue = item.toString();
+                    showAlertDialog(context);
                   },
-                  items: listaServicos.map((ItemService item) {
+                  items: listaServicos.map((ItemHorario item) {
                     return DropdownMenuItem(
                       value: item.index,
                       child: Text(
@@ -68,26 +92,13 @@ class ListaServicosPage extends StatelessWidget {
                   height: 60.0,
                   minWidth: 250.0,
                   child: RaisedButton(
-                    onPressed: () =>
-                        {Navigator.of(context).pushReplacementNamed('/horarios')},
+                    onPressed: () => {
+                      Navigator.of(context).pushReplacementNamed('/servicos')
+                    },
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    child: Text("MEUS AGENDAMENTOS",
+                    child: Text("VOLTAR",
                         style: TextStyle(color: Colors.white70, fontSize: 15)),
-                  ),
-                ),
-                SizedBox(height: 25),
-                ButtonTheme(
-                  height: 60.0,
-                  minWidth: 250.0,
-                  child: RaisedButton(
-                    onPressed: () =>
-                        {Navigator.of(context).pushReplacementNamed('/login')},
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    child: Text("SAIR",
-                        style: TextStyle(color: Colors.black, fontSize: 15)),
-                    color: Colors.white70,
                   ),
                 ),
               ],
