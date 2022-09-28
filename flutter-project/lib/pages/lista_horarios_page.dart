@@ -18,11 +18,13 @@ class ListaHorariosPage extends StatelessWidget {
   showAlertDialog(BuildContext context) {
     Widget okButton = FlatButton(
       child: Text("Agendar"),
-      onPressed: () {},
+      onPressed: () =>
+      {Navigator.of(context).pushReplacementNamed('/agendamentos')},
     );
     Widget cancelarButton = FlatButton(
       child: Text("Cancelar"),
-      onPressed: () {},
+      onPressed: () =>
+      {Navigator.of(context).pushReplacementNamed('/horarios')},
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(

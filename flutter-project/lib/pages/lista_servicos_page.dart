@@ -50,9 +50,10 @@ class ListaServicosPage extends StatelessWidget {
                   hint: Text(
                     'Selecione um Serviço',
                   ),
-                  //isExpanded: false,
+                  //isExpanded: true,
                   onChanged: (item) {
                     _selectedValue = item.toString();
+                    Navigator.of(context).pushReplacementNamed('/horarios');
                   },
                   items: listaServicos.map((ItemService item) {
                     return DropdownMenuItem(
@@ -69,7 +70,7 @@ class ListaServicosPage extends StatelessWidget {
                   minWidth: 250.0,
                   child: RaisedButton(
                     onPressed: () =>
-                        {Navigator.of(context).pushReplacementNamed('/horarios')},
+                        {Navigator.of(context).pushReplacementNamed('/agendamentos')},
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     child: Text("MEUS AGENDAMENTOS",
