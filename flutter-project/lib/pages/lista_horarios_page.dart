@@ -24,7 +24,9 @@ class ListaHorariosPage extends StatelessWidget {
     Widget cancelarButton = FlatButton(
       child: Text("Cancelar"),
       onPressed: () =>
-      {Navigator.of(context).pushReplacementNamed('/horarios')},
+      {
+        Navigator.pop(context, false)
+      },
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -57,13 +59,6 @@ class ListaHorariosPage extends StatelessWidget {
           width: double.infinity,
           //color: Colors.red,
           padding: EdgeInsets.symmetric(vertical: 70.0, horizontal: 70.0),
-          /*  decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/fundo_app.png"),
-              fit: BoxFit.cover,
-            ),
-          ),*/
-
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
