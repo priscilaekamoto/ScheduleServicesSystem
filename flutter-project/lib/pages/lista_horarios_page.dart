@@ -1,19 +1,62 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class ItemHorario {
-  int index;
-  String value;
 
-  ItemHorario(int id, String val) {
-    index = id;
-    value = val;
+  final DateTime dataHora;
+  final bool disponivel;
+
+  const ItemHorario({this.dataHora, this.disponivel});
+
+  factory ItemHorario.fromJson(Map<String, dynamic> json) {
+    return ItemHorario(dataHora: DateTime.parse(json['dataHora']), disponivel: json['disponivel']);
+  }
+}
+
+class ResultApi {
+
+  final String mensagem;
+  final List<ItemHorario> value;
+
+  const ResultApi({this.mensagem, this.value});
+
+  factory ResultApi.fromJson(Map<String, dynamic> json) {
+
+    List<ItemHorario> listaItemHorario = List<ItemHorario>.from(json['value'].map<ItemHorario>((dynamic i) => ItemHorario.fromJson(i)));
+
+    return ResultApi(
+        mensagem: json["mensagem"],
+        value: listaItemHorario
+    );
   }
 }
 
 class ListaHorariosPage extends StatelessWidget {
   const ListaHorariosPage({Key key}) : super(key: key);
+
+  @override
+  void initState() {
+
+  }
+
+  Future<List<ItemHorario>> fetchAgenda() async {
+
+    final response = await http
+        .get(Uri.parse('https://localhost/api/Agenda?code=hehehehehe'));
+
+    if (response.statusCode == 200) {
+
+      ResultApi resultApi = await ResultApi.fromJson(jsonDecode(response.body));
+      return resultApi.value;
+    } else {
+      throw Exception('Failed to load album');
+    }
+  }
 
   showAlertDialog(BuildContext context) {
     Widget okButton = FlatButton(
@@ -46,13 +89,6 @@ class ListaHorariosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     String _selectedValue;
 
-    List<ItemHorario> listaServicos = [
-      new ItemHorario(1, "10:30"),
-      new ItemHorario(2, "11:30"),
-      new ItemHorario(3, "13:00"),
-      new ItemHorario(4, "14:00"),
-    ];
-
     return Scaffold(
       body: Container(
           height: double.infinity,
@@ -65,24 +101,32 @@ class ListaHorariosPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Image.asset("assets/logo_assinatura.png", width: 250),
-                DropdownButton(
-                  value: _selectedValue,
-                  hint: Text(
-                    'Horários Disponíveis',
-                  ),
-                  //isExpanded: false,
-                  onChanged: (item) {
-                    _selectedValue = item.toString();
-                    showAlertDialog(context);
-                  },
-                  items: listaServicos.map((ItemHorario item) {
-                    return DropdownMenuItem(
-                      value: item.index,
-                      child: Text(
-                        item.value,
+                FutureBuilder(
+                  future:fetchAgenda(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return snapshot.hasData
+                        ? Container(
+                      child: DropdownButton<String>(
+                        hint: Text("Selecione um Horário" ?? 'Make a selection'),
+                        items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+
+                          return DropdownMenuItem<String>(
+                            value: 12.toString(), // TODO: Trocar pelo id do serviço
+                            child: Text(DateFormat('dd/MM/yyyy – kk:mm').format(item.dataHora)),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          _selectedValue = value.toString();
+                          showAlertDialog(context);
+                        },
+                      ),
+                    )
+                        : Container(
+                      child: Center(
+                        child: Text('Buscando Agenda...'),
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
                 SizedBox(height: 290),
                 ButtonTheme(
@@ -104,3 +148,4 @@ class ListaHorariosPage extends StatelessWidget {
     );
   }
 }
+
